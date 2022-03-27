@@ -5,20 +5,27 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Navbar from 'react-bootstrap/Navbar';
 import { render } from 'react-dom';
 import logo from '../../static/img/logo.png'
-
+import IUser from "../../components/APIs/contracts/userclass"
 
 export default class Layout extends React.Component{
 
   constructor(props) {
     super(props)
-  
+    this.contract= new IUser()
     this.state = {
-       isMaker: true //STABILISCE QUALE NAVBAR FAR VISUALIZZARE
+       isMaker: false ,
+       isPlayer: false
     }
+  }
+
+  async componentDidMount(){
+   this.setState({isMaker:await this.contract.isMaker()})
+   this.setState({isPlayer:await this.contract.isUser()})
   }
 
   render(){
     let maker 
+    if(this.state.isPlayer){
     if(this.state.isMaker){
      maker=<div className='container'>
     <Navbar bg="pri" fixed="top" variant="light">
@@ -75,6 +82,22 @@ export default class Layout extends React.Component{
         </Navbar>
 </div>
     }
+  }
+  else{
+    maker=<div className='container'>
+    <Navbar bg="pri" fixed="top" variant="light">
+
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <Button className='button'>
+            <Link to="/">Home</Link>
+          </Button>
+          <Button className ="button">
+          <Link to="/Signup">Signup</Link>
+          </Button>
+        </div>
+        </Navbar>
+</div>
+  }
   return (
     <>
     {maker}

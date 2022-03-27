@@ -57,6 +57,7 @@ changeUser = async (event)=> {
         let box
         if(this.state.enabledCheckBox){
             box = <div>
+                <p>Inserisci il range di ore in cui sei disponibile</p>
                 Dalle ore:
                 <input type="time" min="00" max="24" onChange={this.state.dalleore}></input>< br/>
                 Alle ore:

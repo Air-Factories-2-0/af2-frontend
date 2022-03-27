@@ -42,4 +42,13 @@ export default class IUser{
         }
     }
 
+    async isUser(){
+        let account = await this.provider.checkIfWalletIsConnected();
+        return await this.contract.methods.isPlayer(account).call()
+    }
+    async isMaker(){
+        let account = await this.provider.checkIfWalletIsConnected();
+        return await this.contract.methods.isMaker(account).call()
+    }
+
 }
